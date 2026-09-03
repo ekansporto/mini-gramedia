@@ -66,8 +66,13 @@
         </ul>
 
         <div class="navbar-nav flex-row order-md-last ms-auto">
-            <a href="#" class="btn btn-primary me-3">Masuk</a>
-            <a href="#" class="btn btn-light">Daftar</a>
+            @if (Auth::check())
+                <a href="{{ route('logout') }}" class="btn btn-danger">Keluar</a>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-primary me-2">Masuk</a>
+                <a href="{{ route('register') }}" class="btn btn-light">Daftar</a>
+            @endif
         </div>
+
     </div>
 </header>
