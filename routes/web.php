@@ -19,4 +19,8 @@ Route::get('/login', function () {
 
 Route::post('/login', [UserController::class, 'login'])->name('login.store');
 
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+//kelompokrouteyangbolehdiaksessetelahlogin
+
+Route::middleware(['IsLoggedIn'])->group(function () {
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+});
