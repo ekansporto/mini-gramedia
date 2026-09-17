@@ -29,6 +29,24 @@
             </div>
         @endif
 
+        @if (Session::get('error'))
+            <div class="alert alert-important alert-danger alert-dismissible" role="alert">
+                <div class="d-flex">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 1215 5110 -10"></path>
+                        </svg>
+                    </div>
+                    <div>{{ Session::get('error') }}</div>
+                </div>
+                <a class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="close"></a>
+
+            </div>
+        @endif
+
         <div id="carousel-sample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carousel-sample" data-bs-slide-to="0" class="active"></button>
@@ -75,101 +93,35 @@
                 <h2 class="ms-3 text-dark"style="font-weight: bold;">Paket Langganan</h2>
             </div>
             <div class="row g-4 mt-2">
-                <div class="col-md-4">
-                    <div class="card h-100" style="background: linear-gradient(135deg, #ffffff 0%, #a7f1c6  100%);">
-                        <div class="card-body row">
-                            <div class="col-4"></div>
-                            <div class="col-6 text-center text-dark">
-                                <h2 style="font-weight: bold;">NON-FICION</h2>
-                                <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE</p>
-                                <div>
-                                    Rp <span
-                                        style="font-size: 2rem;
-                                             font-weight: bold;
-                                             "
-                                        class="text-warning">
-                                        49.000
-                                    </span>
+                @forelse ($packages as $package)
+                    <div class="col-md-4">
+                        <div class="card h-100"
+                            style="background: linear-gradient(135deg, #ffffff 0%, {{ $package->color ?? '#d9f99d' }} 100%);">
+                            <div class="card-body row">
+                                <div class="col-4"></div>
+                                <div class="col-6 text-center text-dark">
+                                    <h2 style="font-weight: bold;">{{ strtoupper($package->name) }}</h2>
+                                    <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE</p>
+                                    <div>
+                                        Rp <span style="font-size: 2rem; font-weight: bold;" class="text-warning">
+                                            {{ number_format($package->price, 0, ',', '.') }}
+                                        </span>
 
-                                    <br>
+                                        <br>
 
-                                    <span
-                                        style="font-weight: bold;
-                                                margin: 0;
-                                                !important"
-                                        class="text-secondary">
-
-                                        /30 DAY
-                                    </span>
+                                        <span style="font-weight: bold; margin: 0; !important" class="text-secondary">
+                                            /30 DAY
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-
-                <div class="col-md-4">
-                    <div class="card h-100" style="background: linear-gradient(135deg, #ffffff 0%, #d6a7f1  100%);">
-                        <div class="card-body row">
-                            <div class="col-4"></div>
-                            <div class="col-6 text-center text-dark">
-                                <h2 style="font-weight: bold;">NON-FICION</h2>
-                                <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE</p>
-                                <div>
-                                    Rp <span
-                                        style="font-size: 2rem;
-                                             font-weight: bold;
-                                             "
-                                        class="text-warning">
-                                        49.000
-                                    </span>
-
-                                    <br>
-                                    <span
-                                        style="font-weight: bold;
-                                                margin: 0;
-                                                !important"
-                                        class="text-secondary">
-
-                                        /30 DAY
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada paket langganan.</div>
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-100" style="background: linear-gradient(135deg, #ffffff 0%, #6f6bda  100%);">
-                        <div class="card-body row">
-                            <div class="col-4"></div>
-                            <div class="col-6 text-center text-dark">
-                                <h2 style="font-weight: bold;">FICION</h2>
-                                <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE</p>
-                                <div>
-                                    Rp <span
-                                        style="font-size: 2rem;
-                                             font-weight: bold;
-                                             "
-                                        class="text-warning">
-                                        99.000
-                                    </span>
-
-                                    <br>
-                                    <span
-                                        style="font-weight: bold;
-                                                margin: 0;
-                                                !important"
-                                        class="text-secondary">
-
-                                        /30 DAY
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
 
 

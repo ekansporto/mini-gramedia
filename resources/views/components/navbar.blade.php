@@ -10,59 +10,80 @@
                 alt="Tabler" class="navbar-brand-image"class=navbar-brand-image>Ebooks</a>
         <!-- END NAVBAR LOGO -->
         <ul class="navbar-nav mx-auto w-50">
-            <div class="dropdown mt-2">
-                <a href="#" class="btn btn-light dropdown-toggle pt-2 me-2" data-bs-toggle="dropdown">
-                    Kategori</a>
-                <div class="dropdown-menu dropdown-menu-card" style="min-width: 600px;">
-                    <div class="p-3">
-                        <div class="row g-2">
-                            <div class="col-3">
-                                <div class="card py-2">
-                                    <div class="card-body p-2 text-center">Ketegori 1</div>
+            @if (Auth::check() && Auth::user()->role == 'admin')
+                <li class="nav-item-active">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.book-categories.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.book-categories-index') ? 'active' : '' }}
+                     ">Kategori
+                        Buku</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.paket-langganan.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.paket-langgana.index') ? 'active' : '' }}
+                 ">Paket
+                        Langganan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">Buku</a>
+                </li>
+            @else
+                <div class="dropdown mt-2">
+                    <a href="#" class="btn btn-light dropdown-toggle pt-2 me-2" data-bs-toggle="dropdown">
+                        Kategori</a>
+                    <div class="dropdown-menu dropdown-menu-card" style="min-width: 600px;">
+                        <div class="p-3">
+                            <div class="row g-2">
+                                <div class="col-3">
+                                    <div class="card py-2">
+                                        <div class="card-body p-2 text-center">Ketegori 1</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card py-2">
-                                    <div class="card-body p-2 text-center">Ketegori 2</div>
+                                <div class="col-3">
+                                    <div class="card py-2">
+                                        <div class="card-body p-2 text-center">Ketegori 2</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card py-2">
-                                    <div class="card-body p-2 text-center">Ketegori 3</div>
+                                <div class="col-3">
+                                    <div class="card py-2">
+                                        <div class="card-body p-2 text-center">Ketegori 3</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card py-2">
-                                    <div class="card-body p-2 text-center">Ketegori 4</div>
+                                <div class="col-3">
+                                    <div class="card py-2">
+                                        <div class="card-body p-2 text-center">Ketegori 4</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="card py-2">
-                                    <div class="card-body p-2 text-center">Ketegori 5</div>
+                                <div class="col-3">
+                                    <div class="card py-2">
+                                        <div class="card-body p-2 text-center">Ketegori 5</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="input-icon w-100 py-2">
-                <input type="text" class="form-control form-control-rounded"
-                    placeholder="Cari Judul, Produk, Buku, Penulis..." />
-                <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <circle cx="10" cy="10" r="7" />
-                        <line x1="21" y1="21" x2="15" y2="15" />
-                    </svg>
-                </span>
-            </div>
-            {{-- -icon keranjang- --}}
-            <div class="mt-3 ms-2">
-                <i class="fa-solid fa-cart-arrow-down fs-3 text-dark"></i>
-            </div>
+                <div class="input-icon w-100 py-2">
+                    <input type="text" class="form-control form-control-rounded"
+                        placeholder="Cari Judul, Produk, Buku, Penulis..." />
+                    <span class="input-icon-addon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <circle cx="10" cy="10" r="7" />
+                            <line x1="21" y1="21" x2="15" y2="15" />
+                        </svg>
+                    </span>
+                </div>
+                {{-- -icon keranjang- --}}
+                <div class="mt-3 ms-2">
+                    <i class="fa-solid fa-cart-arrow-down fs-3 text-dark"></i>
+                </div>
+            @endif
         </ul>
 
         <div class="navbar-nav flex-row order-md-last ms-auto">
