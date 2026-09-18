@@ -109,8 +109,8 @@
 
                                         <br>
 
-                                        <span style="font-weight: bold; margin: 0; !important" class="text-secondary">
-                                            /30 DAY
+                                        <span style="font-weight: bold; margin: 0 !important;" class="text-secondary">
+                                            {{ $package->description }}
                                         </span>
                                     </div>
                                 </div>
