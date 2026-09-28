@@ -13,7 +13,7 @@ class SubscriptionPackageController extends Controller
     public function index()
     {
         $packages = SubscriptionPackage::all();
-
+        // dd($packages);
         return view('admin.subscription-package.index', compact('packages'));
     }
 

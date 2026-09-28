@@ -4,16 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BookCategory;
+use Yajra\DataTables\Facades\DataTables;
 
 class BookCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookCategories = BookCategory::all();
-        return view('admin.book-categories.index', compact('bookCategories'));
+        if ($request->ajax()) {
+            $model  = BookCategory::query();
+
+            return DataTables::eloquent($model)
+                //menambahkan no urut data1-2
+                ->addIndexColumn()
+                //menambahkan data selain yang di database
+                ->addColumn('action', function ($data) {
+                    $editUrl = route('admin.book-categories.edit', $data->id);
+                    $deleteUrl = route('admin.book-categories.destroy', $data->id);
+                    $csrf = csrf_field();
+                    $method = method_field('DELETE');
+                    $btnEdit = '<a href="' . $editUrl . '"
+                                    class="btn btn-warning btn-sm me-2">Edit</a>';
+                    $btnDelete = '<form action="' . $deleteUrl . '"method="POST"
+                                class="d-inline">' . $csrf . $method . '<button type="submit"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm(\'Apakah Anda yakin ingin menghapus kategori ini?\')">
+                                        Hapus
+                                    </button>
+                                </form>';
+                    return $btnEdit . $btnDelete;
+                })->rawColumns(['action'])
+                ->toJson();
+        }
+        return view('admin.book-categories.index');
     }
 
     /**
