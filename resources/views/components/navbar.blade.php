@@ -11,7 +11,7 @@
         <!-- END NAVBAR LOGO -->
         <ul class="navbar-nav mx-auto w-50">
             @if (Auth::check() && Auth::user()->role == 'admin')
-                <li class="nav-item-active">
+                <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">

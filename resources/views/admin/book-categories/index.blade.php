@@ -34,7 +34,8 @@
             </div>
         </div>
     </div>
-    @endsection @push('scripts')
+@endsection
+@push('scripts')
     <script>
         $(document).ready(function() {
             $("#book-categories-table").DataTable({

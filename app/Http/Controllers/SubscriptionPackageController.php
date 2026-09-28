@@ -4,18 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\SubscriptionPackage;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class SubscriptionPackageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $packages = SubscriptionPackage::all();
-        // dd($packages);
-        return view('admin.subscription-package.index', compact('packages'));
+        if ($request->ajax()) {
+            $model  = SubscriptionPackage::query();
+
+            return DataTables::eloquent($model)
+                //menambahkan no urut data1-2
+                ->addIndexColumn()
+                //menambahkan data selain yang di database
+                ->addColumn('action', function ($data) {
+                    $editUrl = route('admin.paket-langganan.edit', $data->id);
+                    $deleteUrl = route('admin.paket-langganan.destroy', $data->id);
+                    $csrf = csrf_field();
+                    $method = method_field('DELETE');
+                    $btnEdit = '<a href="' . $editUrl . '"
+                                    class="btn btn-warning btn-sm me-2">Edit</a>';
+                    $btnDelete = '<form action="' . $deleteUrl . '"method="POST"
+                                class="d-inline">' . $csrf . $method . '<button type="submit"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm(\'Apakah Anda yakin ingin menghapus paket langganan ini?\')">
+                                        Hapus
+                                    </button>
+                                </form>';
+                    return $btnEdit . $btnDelete;
+                })->rawColumns(['action'])
+                ->toJson();
+        }
+        return view('admin.subscription-package.index');
     }
+
 
     /**
      * Show the form for creating a new resource.
