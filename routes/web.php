@@ -1,18 +1,17 @@
 <?php
 
 use App\Http\Controllers\BookCategoryController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\SubscriptionPackageController;
 use App\Http\Controllers\UserController;
-use App\Models\SubscriptionPackage;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $packages = SubscriptionPackage::all();
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/kategori/{category}', [HomeController::class, 'category'])->name('category.books');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
-    return view('home', compact('packages'));
-})->name('home');
-
-//kelompokrouteyangbolehdiaksessetelahlogin
+//kelompok route yang boleh diakses setelah login
 
 Route::middleware(['IsLoggedIn'])->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
@@ -25,6 +24,7 @@ Route::middleware(['IsLoggedIn'])->group(function () {
 
         Route::resource('book-categories', BookCategoryController::class);
         Route::resource('paket-langganan', SubscriptionPackageController::class);
+        Route::resource('books', BookController::class);
     });
 });
 
