@@ -95,27 +95,33 @@
             <div class="row g-4 mt-2">
                 @forelse ($subscriptionPackages as $package)
                     <div class="col-md-4">
-                        <div class="card h-100"
-                            style="background: linear-gradient(135deg, #ffffff 0%, {{ $package->color ?? '#d9f99d' }} 100%);">
-                            <div class="card-body row">
-                                <div class="col-4"></div>
-                                <div class="col-6 text-center text-dark">
-                                    <h2 style="font-weight: bold;">{{ strtoupper($package->name) }}</h2>
-                                    <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE</p>
-                                    <div>
-                                        Rp <span style="font-size: 2rem; font-weight: bold;" class="text-warning">
-                                            {{ number_format($package->price, 0, ',', '.') }}
-                                        </span>
 
-                                        <br>
+                        <a href="{{ route('package.detail', $package->id) }}"
+                            class="text-decoration-none text-reset d-block h-100">
 
-                                        <span style="font-weight: bold; margin: 0 !important;" class="text-secondary">
-                                            {{ $package->description }}
-                                        </span>
+                            <div class="card h-100"
+                                style="background: linear-gradient(135deg, #ffffff 0%, {{ $package->color ?? '#d9f99d' }} 100%);">
+                                <div class="card-body row">
+                                    <div class="col-4"></div>
+                                    <div class="col-6 text-center text-dark">
+                                        <h2 style="font-weight: bold;">{{ strtoupper($package->name) }}</h2>
+                                        <p class="text-secondary" style="font-weight: bold; margin: 0; !important">PACKAGE
+                                        </p>
+                                        <div>
+                                            Rp <span style="font-size: 2rem; font-weight: bold;" class="text-warning">
+                                                {{ number_format($package->price, 0, ',', '.') }}
+                                            </span>
+
+                                            <br>
+
+                                            <span style="font-weight: bold; margin: 0 !important;" class="text-secondary">
+                                                {{ $package->description }}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @empty
                     <div class="col-12">

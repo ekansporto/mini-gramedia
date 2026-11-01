@@ -54,4 +54,25 @@ class HomeController extends Controller
 
         return view('search_result', compact('books', 'query'));
     }
+
+    public function packageDetail(Request $request, string $id)
+    {
+        $package = SubscriptionPackage::findOrFail($id);
+
+        $query = trim((string) $request->input('q', ''));
+
+        $books = Book::query()
+            ->whereHas('subscriptionPackageBooks', function ($builder) use ($package) {
+                $builder->where('subscription_package_id', $package->id);
+            })
+            ->with('bookCategory')
+            ->when($query !== '', function ($builder) use ($query) {
+                $builder->where('title', 'like', '%' . $query . '%');
+            })
+            ->orderBy('title')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('user.subscription-package.package_detail', compact('package', 'books', 'query'));
+    }
 }

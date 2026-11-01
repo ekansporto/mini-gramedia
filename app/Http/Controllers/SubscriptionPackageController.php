@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubscriptionPackage;
+use App\Models\SubscriptionPackageUser;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionPackageController extends Controller
 {
@@ -23,6 +25,8 @@ class SubscriptionPackageController extends Controller
                 ->addColumn('action', function ($data) {
                     $editUrl = route('admin.paket-langganan.edit', $data->id);
                     $deleteUrl = route('admin.paket-langganan.destroy', $data->id);
+                    $books =  route('admin.subscription-packages.books', $data->id);
+
                     $csrf = csrf_field();
                     $method = method_field('DELETE');
                     $btnEdit = '<a href="' . $editUrl . '"
@@ -34,7 +38,10 @@ class SubscriptionPackageController extends Controller
                                         Hapus
                                     </button>
                                 </form>';
-                    return $btnEdit . $btnDelete;
+
+                    $btnBooks = '<a href="' . $books . '" class="btn btn-info btn-sm">Buku</a>';
+
+                    return $btnEdit . $btnDelete . $btnBooks;
                 })->rawColumns(['action'])
                 ->toJson();
         }
@@ -113,5 +120,29 @@ class SubscriptionPackageController extends Controller
         $package->delete();
 
         return redirect()->route('admin.paket-langganan.index')->with('success', 'Paket langganan berhasil dihapus.');
+    }
+
+    public function checkoutPage(string $id)
+    {
+        $package = SubscriptionPackage::findOrFail($id);
+
+        return view('user.subscription-package.checkout', compact('package'));
+    }
+
+    public function checkout(Request $request, string $id)
+    {
+        $package = SubscriptionPackage::findOrFail($id);
+
+        // Simpan data langganan ke database atau lakukan proses pembayaran di sini
+        // Misalnya, Anda bisa membuat model Subscription untuk menyimpan data langganan
+
+        // Contoh penyimpanan data langganan
+        SubscriptionPackageUser::create([
+            'user_id' => Auth::id(),
+            'subscription_package_id' => $package->id,
+            'expired_date' => now()->addDays(30)->format('Y-m-d'), // Misalnya, langganan berlaku selama 1 bulan
+        ]);
+
+        return redirect()->route('home')->with('succes', 'Pembayaran berhasil. Terima kasih telah berlangganan paket!');
     }
 }
