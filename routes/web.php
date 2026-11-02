@@ -25,6 +25,8 @@ Route::middleware(['IsLoggedIn'])->group(function () {
     Route::post('/subscription-packages/{id}/checkout', [SubscriptionPackageController::class, 'checkout'])
         ->name('subscription-packages.checkout');
 
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
 
     Route::prefix('admin')->name('admin.')->middleware('IsAdmin')->group(function () {
         Route::get('/dashboard', function () {

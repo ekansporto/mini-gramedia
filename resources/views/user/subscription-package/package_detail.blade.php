@@ -44,25 +44,40 @@
         {{-- Daftar buku --}}
         <div class="row g-3">
             @forelse ($books as $book)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card h-100 shadow-sm">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card h-100">
                         <div class="card-body">
-                            <img src="{{ asset($book->cover) }}" alt="{{ $book->title }}" class="d-block mx-auto mb-3"
-                                style="width: 100%; height: 200px; object-fit: contain;">
 
-                            <h5 class="fw-bold">{{ $book->title }}</h5>
+                            {{-- Sampul Buku --}}
+                            <img src="{{ asset($book->cover) }}" alt="{{ $book->title }}" class="d-block mx-auto w-75"
+                                style="height: 260px; object-fit: contain;">
 
-                            <p class="text-secondary mb-2">
-                                {{ $book->writer }}
-                            </p>
+                            {{-- Badge --}}
+                            <div class="d-flex gap-2 mt-3">
+                                <span class="badge bg-secondary text-white">
+                                    <i class="fa-solid fa-mobile-screen"></i> PDF
+                                </span>
 
-                            <p class="small mb-2">
-                                {{ $book->bookCategory->name ?? 'Tanpa kategori' }}
-                            </p>
+                                <span class="badge bg-primary text-white">3+</span>
+                            </div>
 
-                            <p class="fw-bold mb-0">
-                                Rp {{ number_format($book->price, 0, ',', '.') }}
-                            </p>
+                            {{-- Informasi Buku --}}
+                            <div>
+                                <h3>
+                                    <span class="text-secondary" style="font-size: 0.8rem">
+                                        {{ $book->writer }}
+                                    </span>
+                                </h3>
+
+                                <span style="font-size: 1rem">
+                                    {{ $book->title }}
+                                </span>
+
+                                <h4 style="font-size: 1.2rem; font-weight: bold;">
+                                    Rp {{ number_format($book->price, 0, ',', '.') }}
+                                </h4>
+                            </div>
+
                         </div>
                     </div>
                 </div>

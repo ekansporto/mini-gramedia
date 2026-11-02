@@ -75,7 +75,25 @@
 
         <div class="navbar-nav flex-row order-md-last ms-auto">
             @if (Auth::check())
-                <a href="{{ route('logout') }}" class="btn btn-danger">Keluar</a>
+                <a href="{{ route('profile') }}" class="nav-link p-0 ms-2">
+                    <span style="position: relative; display: inline-block;">
+
+                        {{-- Avatar --}}
+                        <span
+                            class="rounded-circle bg-light text-secondary border d-flex align-items-center justify-content-center fw-semibold"
+                            style="width: 40px; height: 40px;">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        </span>
+
+                        {{-- Titik hijau --}}
+                        <span class="rounded-circle bg-success border border-white"
+                            style="position: absolute; width: 11px; height: 11px; bottom: 0; right: 0;">
+                        </span>
+
+                    </span>
+                </a>
+
+                <a href="{{ route('logout') }}" class="btn btn-danger ms-2">Keluar</a>
             @else
                 <a href="{{ route('login') }}" class="btn btn-primary me-2">Masuk</a>
                 <a href="{{ route('register') }}" class="btn btn-light">Daftar</a>

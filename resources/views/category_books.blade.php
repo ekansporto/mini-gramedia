@@ -35,25 +35,49 @@
             <div class="alert alert-info">Tidak ada buku yang ditemukan untuk kategori ini.</div>
         @else
             <div class="row g-4">
-                @foreach ($books as $book)
+                @forelse($books as $book)
                     <div class="col-md-3 col-sm-6">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset($book->cover) }}" class="card-img-top" alt="{{ $book->title }}"
-                                style="height: 260px; object-fit: cover;">
-                            <div class="card-body d-flex flex-column">
-                                <span class="badge bg-primary text-white align-self-start mb-2"><i
-                                        class="fa-solid fa-mobile-screen"></i>
-                                    PDF</span>
-                                <div class="text-secondary small mb-1">{{ $book->writer }}</div>
-                                <h3 class="h5 mb-2">{{ $book->title }}</h3>
-                                <div class="mt-auto">
-                                    <div class="fw-bold text-primary">Rp {{ number_format($book->price, 0, ',', '.') }}
-                                    </div>
+                        <div class="card h-100">
+                            <div class="card-body">
+
+                                {{-- Sampul Buku --}}
+                                <img src="{{ asset($book->cover) }}" alt="{{ $book->title }}" class="d-block mx-auto w-75"
+                                    style="height: 260px; object-fit: contain;">
+
+                                {{-- Badge --}}
+                                <div class="d-flex gap-2 mt-3">
+                                    <span class="badge bg-secondary text-white">
+                                        <i class="fa-solid fa-mobile-screen"></i> PDF
+                                    </span>
+
+                                    <span class="badge bg-primary text-white">3+</span>
                                 </div>
+
+                                {{-- Informasi Buku --}}
+                                <div>
+                                    <h3>
+                                        <span class="text-secondary" style="font-size: 0.8rem">
+                                            {{ $book->writer }}
+                                        </span>
+                                    </h3>
+
+                                    <span style="font-size: 1rem">
+                                        {{ $book->title }}
+                                    </span>
+
+                                    <h4 style="font-size: 1.2rem; font-weight: bold;">
+                                        Rp {{ number_format($book->price, 0, ',', '.') }}
+                                    </h4>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">Tidak ada buku yang ditemukan.</p>
+                    </div>
+                @endforelse
             </div>
         @endif
     </div>

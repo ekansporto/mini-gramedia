@@ -35,7 +35,7 @@ class BookController extends Controller
                     $csrf = csrf_field();
                     $method = method_field('DELETE');
                     $btnEdit = '<a href="' . $editUrl . '"
-                                    class="btn btn-primary me-2">Edit</a>';
+                                    class="btn btn-sm btn-primary me-2">Edit</a>';
                     $btnDelete = '<form action="' . $deleteUrl . '"method="POST"
                                 class="d-inline">' . $csrf . $method . '<button type="submit"
                                 class="btn btn-sm btn-danger"
@@ -43,7 +43,7 @@ class BookController extends Controller
                                         Hapus
                                     </button>
                                 </form>';
-                    $btnDetail = '<button type="button" class="btn btn-primary" id="btn-detail"
+                    $btnDetail = '<button type="button" class="btn btn-sm btn-primary me-2" id="btn-detail"
                         data-cover="' . e(asset($row->cover)) . '"
                         data-title="' . e($row->title) . '"
                         data-category="' . e($row->bookCategory->name) . '"

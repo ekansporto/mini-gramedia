@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SubscriptionPackageUser;
+use App\Models\Checkout;
 
 class UserController extends Controller
 {
@@ -66,5 +68,26 @@ class UserController extends Controller
         Auth::logout();
 
         return redirect()->route('home')->with('success', 'Berhasil logout!');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        $subscriptions = SubscriptionPackageUser::with('subscriptionPackage')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        $checkouts = Checkout::with('checkoutBooks.book')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        $bookCount = Checkout::where('user_id', $user->id)->count();
+
+        $subscriptionCount = SubscriptionPackageUser::where('user_id', $user->id)->count();
+
+        return view('profile', compact('user', 'subscriptions', 'checkouts', 'bookCount', 'subscriptionCount'));
     }
 }
