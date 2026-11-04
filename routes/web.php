@@ -36,6 +36,8 @@ Route::middleware(['IsLoggedIn'])->group(function () {
         Route::get('subscription-packages/{id}/books', [SubscriptionPackageBookController::class, 'show'])->name('subscription-packages.books');
         Route::post('subscription-packages/{id}/books', [SubscriptionPackageBookController::class, 'store'])->name('subscription-packages.store');
 
+        Route::get('book-categories/export', [BookCategoryController::class, 'export'])
+            ->name('book-categories.export');
         Route::resource('book-categories', BookCategoryController::class);
         Route::resource('paket-langganan', SubscriptionPackageController::class);
         Route::resource('books', BookController::class);

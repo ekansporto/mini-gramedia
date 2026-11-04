@@ -76,7 +76,7 @@ class UserController extends Controller
 
         $subscriptions = SubscriptionPackageUser::with('subscriptionPackage')
             ->where('user_id', $user->id)
-            ->latest()
+            ->orderBy('expired_date', 'desc')
             ->get();
 
         $checkouts = Checkout::with('checkoutBooks.book')
