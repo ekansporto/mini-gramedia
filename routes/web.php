@@ -39,7 +39,13 @@ Route::middleware(['IsLoggedIn'])->group(function () {
         Route::get('book-categories/export', [BookCategoryController::class, 'export'])
             ->name('book-categories.export');
         Route::resource('book-categories', BookCategoryController::class);
+
+        Route::get('subscription-packages/export', [SubscriptionPackageController::class, 'export'])
+            ->name('subscription-packages.export');
         Route::resource('paket-langganan', SubscriptionPackageController::class);
+
+        Route::get('books/export', [BookController::class, 'export'])
+            ->name('books.export');
         Route::resource('books', BookController::class);
     });
 });

@@ -7,6 +7,8 @@ use App\Models\SubscriptionPackageUser;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\SubscriptionPackageExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubscriptionPackageController extends Controller
 {
@@ -144,5 +146,13 @@ class SubscriptionPackageController extends Controller
         ]);
 
         return redirect()->route('home')->with('succes', 'Pembayaran berhasil. Terima kasih telah berlangganan paket!');
+    }
+
+    public function export()
+    {
+        return Excel::download(
+            new SubscriptionPackageExport,
+            'data_paket_langganan.xlsx'
+        );
     }
 }

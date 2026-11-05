@@ -9,7 +9,15 @@
         @endif
         <div class="d-flex justify-content-between">
             <h3>Data Buku</h3>
-            <a href="{{ route('admin.books.create') }}"class="btn btn-success">Tambah Data Buku</a>
+            <div class="d-flex gap-2">
+                <a href="{{ route('admin.books.export') }}" class="btn btn-success">
+                    Export Excel
+                </a>
+
+                <a href="{{ route('admin.books.create') }}" class="btn btn-primary">
+                    Tambah Buku
+                </a>
+            </div>
         </div>
         <table class="table table-bordered mt-3" id="data-buku">
             <thead>

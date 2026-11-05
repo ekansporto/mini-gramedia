@@ -7,6 +7,8 @@ use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Exports\BookExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -177,5 +179,10 @@ class BookController extends Controller
         }
         $book->delete();
         return redirect()->route('admin.books.index')->with('success', 'Berhasil menghapus data buku!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new BookExport, 'data_buku.xlsx');
     }
 }
