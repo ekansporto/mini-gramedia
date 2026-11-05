@@ -5,10 +5,10 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Paket Langganan</h2>
             <div class="d-flex gap-2">
-                <a href="{{ route('admin.paket-langganan.create') }}" class="btn btn-primary">Tambah Paket</a>
                 <a href="{{ route('admin.subscription-packages.export') }}" class="btn btn-success">
                     Export Excel
                 </a>
+                <a href="{{ route('admin.paket-langganan.create') }}" class="btn btn-primary">Tambah Paket</a>
             </div>
         </div>
 

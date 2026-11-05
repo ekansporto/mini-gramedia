@@ -43,7 +43,7 @@ class BookExport implements FromCollection, WithHeadings, WithMapping, WithStyle
     public function map($book): array
     {
         return [
-            $this->no++,
+            ++$this->no,
             $book->cover,
             $book->bookCategory?->name,
             $book->title,

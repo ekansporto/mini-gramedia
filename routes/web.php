@@ -12,6 +12,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kategori/{category}', [HomeController::class, 'category'])->name('category.books');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
+Route::get('/books/{id}', [BookController::class, 'show'])
+    ->name('books.show');
+Route::resource('books', BookController::class)->except(['show']);
+
+
 Route::get('/paket-langganan/{id}', [HomeController::class, 'packageDetail'])
     ->name('package.detail');
 
